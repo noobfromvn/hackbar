@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+  "name": "Hackbar",
+  "description": "A developer tool panel that helps pen-testers to perform manual web security testing inside their browser. This addon is writed in webextension and alternatives to the XUL version of original Hackbar.",
+  "version": "1.0.0",
+  "applications": {
+    "gecko": {
+      "strict_min_version": "57.0a1"
+    }
+  },
+  "author": "Black Dragon",
+  "developer": {
+    "name": "Black Dragon",
+    "url": "https://nightst0rm.net"
+  },
+  "homepage_url": "https://github.com/noobfromvn/hackbar",
+  "icons": {
+    "48": "icons/hackbar_icon.png",
+    "96": "icons/icon.png"
+  },
+  "devtools_page": "hackbar/hackbar.html",
+  "background": {
+    "scripts": [
+      "background/background.js"
+    ]
+  },
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>"
+  ]
+}

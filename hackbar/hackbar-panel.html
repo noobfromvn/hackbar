@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Design</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="font/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/light.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<section class="box-input-url">
+    <div class="tool-option">
+        <nav class="nav navbar-default">
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">SQL <span class="caret"></span></a>
+                        <ul class="dropdown-menu multi-level">
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">MYSQL</a>
+                                <ul class="dropdown-menu">
+                                    <li><a name="mysqlbasicinfo"><i class="fa fa-database"></i> Basic info column</a></li>
+                                    <li><a name="mysqlconvertutf8"><i class="fa fa-exchange"></i> Convert using UTF-8</a></li>
+                                    <li><a name="mysqlconvertlatin1"><i class="fa fa-exchange"></i> Convert using Latin1</a></li>
+                                    <li><a name="mysqltosqlchar"><i class="fa fa-database"></i> MYSQL CHAR()</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">MSSQL</a>
+                                <ul class="dropdown-menu">
+                                    <li><a name="mssqltosqlchar"><i class="fa fa-database"></i> MSSQL CHAR()</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#">Oracle</a>
+                                <ul class="dropdown-menu">
+                                    <li><a name="oracletosqlchar"><i class="fa fa-database"></i> Oracle CHAR()</a></li>
+                                </ul>
+                            </li>
+                            <li><a name="unionselect"><i class="fa fa-database"></i> Union select statement</a></li>
+                            <li><a name="spacestocomments"><i class="fa fa-database"></i> Spaces to inline comments</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">XSS <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a name="stringtocharcode"><i class="fa fa-code"></i> String.fromCharCode()</a></li>
+                            <li><a name="stringtohtmlcharcode"><i class="fa fa-code"></i> HTML Characters</a></li>
+                            <li><a name="xssalert"><i class="fa fa-eye"></i> alert('XSS') statement</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Encryption <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a name="md5hash"><i class="fa fa-lock"></i> MD5 Hash</a></li>
+                            <li><a name="sha1hash"><i class="fa fa-lock"></i> SHA1Hash</a></li>
+                            <li><a name="sha256hash"><i class="fa fa-lock"></i> SHA-256Hash</a></li>
+                            <li><a name="rot13"><i class="fa fa-lock"></i> ROT13</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Encoding <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a name="base64encode"><i class="fa fa-exchange"></i> Base64 Encode</a></li>
+                            <li><a name="base64decode"><i class="fa fa-exchange"></i> Base64 Decode</a></li>
+                            <li><a name="urlencode"><i class="fa fa-exchange"></i> Url Encode</a></li>
+                            <li><a name="urldecode"><i class="fa fa-exchange"></i> Url Decode</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Other <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a name="addslashes"><i class="fa fa-edit"></i> Addslashes</a></li>
+                            <li><a name="stripslashes"><i class="fa fa-eraser"></i> Striplashes</a></li>
+                            <li><a name="stripspaces"><i class="fa fa-eraser"></i> Strip Spaces </a></li>
+                            <li><a name="reverse"><i class="fa fa-exchange"></i> Reverse</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Hackbar</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</section>
+<section class="box-input-url">
+    <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-1 col-lg-1">
+            <div class="range"><img src="img/load.png" alt="">
+                <p id="hackbar_loadurl" class="box">Lo<u>a</u>d URL</p></div>
+            <div class="range"><img src="img/split.gif" alt="">
+                <p id="hackbar_split" class="box"><u>S</u>plit URL</p></div>
+            <div class="range"><img src="img/web.png" alt="">
+                <p id="hackbar_run" class="box">Execute</p></div>
+        </div>
+        <div class="col-xs-8 col-sm-8 col-md-11 col-lg-11">
+            <textarea spellcheck="false" id="hackbar_urlfield" cols="30" class="form-control" rows="4"></textarea><br>
+            <input id="hackbar_enablepostdata" type="checkbox" value=""><label>Enable Post Data</label> &nbsp;&nbsp;
+            <input id="hackbar_enablereferer" type="checkbox" value=""><label>Enable Referrer</label>
+        </div>
+    </div>
+</section>
+<section class="box-data">
+    <div id="hackbar_postdatacontainer" style="visibility: hidden" class="row">
+        <div class="col-xs-5 col-sm-4 col-md-1 col-lg-1">
+            <span class="basic">Post data</span>
+        </div>
+        <div class="col-xs-7 col-sm-8 col-md-11 col-lg-11 gold">
+            <textarea spellcheck="false" id="hackbar_postdatafield" cols="30" class="form-control" rows="4"></textarea>
+        </div>
+    </div>
+    <div id="hackbar_referercontainer" style="visibility: hidden" class="row">
+        <div class="col-xs-5 col-sm-4 col-md-1 col-lg-1">
+            <span class="basic">Referrer</span>
+        </div>
+        <div class="col-xs-7 col-sm-8 col-md-11 col-lg-11 silver">
+            <textarea spellcheck="false" id="hackbar_refererfield" cols="30" class="form-control" rows="4"></textarea>
+        </div>
+    </div>
+</section>
+<script src="js/hackbar-panel.js"></script>
+<script src="js/Encrypt.js"></script>
+<script src="js/SQL.js"></script>
+<script src="js/XSS.js"></script>
+<script src="js/MISC.js"></script>
+</body>
+</html>
