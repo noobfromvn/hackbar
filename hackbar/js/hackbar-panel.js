@@ -322,23 +322,30 @@ function splitUrl() {
 var typePostdata = "";
 
 function getPostData() {
-    if ((postdatafield.value || '').indexOf("Content-Disposition: form-data; name=") > -1) {
-        typePostdata = "multipart";
-        return postdatafield.value;
-    }
-    else if ((postdatafield.value || '').indexOf("&") > -1) {
-        typePostdata = "formdata";
-        var dataString = postdatafield.value;
-        dataString = dataString.replace(new RegExp(/\n|\r/g), '');
-        dataString = dataString.replace(new RegExp(/\+/g), "%2B");
+    var dataString = postdatafield.value;
+    if (dataString || '') {
         dataString = dataString.replace(new RegExp(/\=\=/g), "%3d%3d"); // for base64
         dataString = dataString.replace(new RegExp(/\=\&/g), "%3d&");   // for base64
-        return dataString.split('&');
+        dataString = dataString.replace(new RegExp(/\=$/g), "%3d&");   // for base64
+        if (dataString.indexOf("Content-Disposition: form-data; name=") > -1) {
+            typePostdata = "multipart";
+            return dataString;
+        }
+        if (dataString.indexOf("&") > -1) {
+            typePostdata = "formdata";
+            dataString = dataString.replace(new RegExp(/\n|\r/g), '');
+            dataString = dataString.replace(new RegExp(/\+/g), "%2B");
+            return dataString.split('&');
+        }
+        if (dataString.indexOf("=") > -1) {
+            typePostdata = "formdata";
+            dataString = dataString.replace(new RegExp(/\n|\r/g), '');
+            dataString = dataString.replace(new RegExp(/\+/g), "%2B");
+            return [dataString];
+        }
     }
-    else {
-        typePostdata = "raw";
-        return postdatafield.value;
-    }
+    typePostdata = "raw";
+    return dataString;
 }
 
 function execute() {
