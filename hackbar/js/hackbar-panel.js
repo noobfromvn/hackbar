@@ -1,6 +1,8 @@
 var urlfield = document.getElementById("hackbar_urlfield");
 var postdatafield = document.getElementById("hackbar_postdatafield");
 var refererfield = document.getElementById("hackbar_refererfield");
+var text2replacefield = document.getElementById("hackbar_text2replace");
+var replacementfield = document.getElementById("hackbar_replacement");
 
 /* ---------- main processs --------- */
 
@@ -43,6 +45,8 @@ var stripslashesBtn = document.getElementsByName("stripslashes")[0];
 var stripspacesBtn = document.getElementsByName("stripspaces")[0];
 var reverseBtn = document.getElementsByName("reverse")[0];
 
+var replaceBtn = document.getElementsByName("replace")[0];
+
 var currentFocusField = null;
 
 loadurlBtn.addEventListener("click", loadUrl, false);
@@ -81,6 +85,7 @@ addslashesBtn.addEventListener('click', anonClickMenuFunct, false);
 stripslashesBtn.addEventListener('click', anonClickMenuFunct, false);
 stripspacesBtn.addEventListener('click', anonClickMenuFunct, false);
 reverseBtn.addEventListener('click', anonClickMenuFunct, false);
+replaceBtn.addEventListener('click', anonClickMenuFunct, false);
 
 anonFocusFunct = function (event) {
     onFieldFocus(event);
@@ -111,7 +116,7 @@ function onClickMenu(event) {
         case 'mysqlconvertutf8':
             txt = this.getSelectedText();
             if (txt !== false) {
-                newString = SQL.selectionMySQLConvertUsing('utf8',txt);
+                newString = SQL.selectionMySQLConvertUsing('utf8', txt);
                 this.setSelectedText(newString);
             }
             break;
@@ -259,6 +264,15 @@ function onClickMenu(event) {
                 this.setSelectedText(newString);
             }
             break;
+        case 'replace':
+            if (text2replacefield.value || ''){
+                var text2replace = text2replacefield.value;
+                var replacement = replacementfield.value;
+                txt = this.currentFocusField.value;
+                newString = txt.replace(new RegExp(text2replace, 'g'), replacement);
+                this.currentFocusField.value = newString;
+            }
+            break;
     }
     currentFocusField.focus();
 }
@@ -269,12 +283,10 @@ function getSelectedText() {
     var selectionStart = this.currentFocusField.selectionStart;
     var selectionEnd = this.currentFocusField.selectionEnd;
     if (selectionEnd - selectionStart < 1) {
-        browser.devtools.inspectedWindow.eval(
-            "alert(\"Select text before using this function!\");",
-            function (result, isException) {
+        browser.devtools.inspectedWindow.eval("alert(\"Select text before using this function!\");")
+            .then(function (result, isException) {
                 // no action
-            }
-        );
+            });
         return false;
     }
     return this.currentFocusField.value.substr(selectionStart, selectionEnd - selectionStart);
@@ -300,15 +312,15 @@ function urlencode(inputstr) {
 }
 
 function loadUrl() {
-    browser.devtools.inspectedWindow.eval(
-        "window.location.href",
-        function (result, isException) {
-            if (isException)
-                urlfield.value = "";
-            else
-                urlfield.value = result;
-        }
-    );
+    browser.devtools.inspectedWindow.eval("window.location.href")
+        .then(function (result, isException) {
+                if (isException)
+                    urlfield.value = "";
+                else
+                    result = result.slice(0,-1);
+                    urlfield.value = result;
+            }
+        );
 }
 
 function splitUrl() {
@@ -349,24 +361,24 @@ function getPostData() {
 }
 
 function execute() {
+    var url= urlfield.value;
+    url = url.replace(new RegExp(/\n|\r/g), '');
     if (refererCbx.checked) {
         browser.runtime.sendMessage({
-            urlfield: urlfield.value,
+            urlfield: url,
             refererfield: refererfield.value
         });
     }
     if (!postdataCbx.checked) { // just get method
-        browser.devtools.inspectedWindow.eval(
-            "window.location.href = '" + urlfield.value + "';",
-            function (result, isException) {
+        browser.devtools.inspectedWindow.eval("window.location.href = '" + url + "';")
+            .then(function (result, isException) {
                 //no action
-            }
-        );
+            });
         return;
     }
     var postData = getPostData();
     if (typePostdata === "formdata") {
-        var scriptpost = 'document.body.innerHTML += \'<form id="hackbardynForm" action="' + urlfield.value + '" method="post">';
+        var scriptpost = 'document.body.innerHTML += \'<form id="hackbardynForm" action="' + url + '" method="post">';
         for (var i = 0; i < postData.length; i++) {
             var field = postData[i].split('=');
             var fieldvalue = "";
@@ -384,17 +396,15 @@ function execute() {
             scriptpost += '<input type="hidden" name="' + field[0] + '" value="' + fieldvalue + '">';
         }
         scriptpost += '</form>\';document.getElementById("hackbardynForm").submit();';
-        browser.devtools.inspectedWindow.eval(
-            scriptpost,
-            function (result, isException) {
+        browser.devtools.inspectedWindow.eval(scriptpost)
+            .then(function (result, isException) {
                 //no action
-            }
-        );
+            });
     }
     else // for raw data and mutilpart formdata
     {
         var responsePost = "";
-        fetch(urlfield.value, {
+        fetch(url, {
             method: "POST",
             redirect: 'follow',
             headers: {
@@ -406,13 +416,11 @@ function execute() {
         }).then(function (response) {
             response.text().then(function (text) {
                 responsePost = text;
-                var scriptpost = 'document.body.innerHTML = unescape(\'' + urlencode(responsePost) + '\');window.history.pushState("", "", \'' + urlfield.value + '\');';
-                browser.devtools.inspectedWindow.eval(
-                    scriptpost,
-                    function (result, isException) {
+                var scriptpost = 'document.body.innerHTML = unescape(\'' + urlencode(responsePost) + '\');window.history.pushState("", "", \'' + url + '\');';
+                browser.devtools.inspectedWindow.eval(scriptpost)
+                    .then(function (result, isException) {
                         //no action
-                    }
-                );
+                    });
             });
         });
     }

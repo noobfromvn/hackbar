@@ -99,3 +99,16 @@ span.basic {
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
 }
+
+input.black {
+    border-radius: 5px;
+    height: 30px;
+    border-style: solid;
+    border-width: thin;
+    border-color: #cccccc;
+}
+
+button.btn-primary-outline {
+    background-color: transparent;
+    border-color: #ccc;
+}

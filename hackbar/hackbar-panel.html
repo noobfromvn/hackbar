@@ -25,9 +25,12 @@
                             <li class="dropdown-submenu">
                                 <a tabindex="-1" href="#">MYSQL</a>
                                 <ul class="dropdown-menu">
-                                    <li><a name="mysqlbasicinfo"><i class="fa fa-database"></i> Basic info column</a></li>
-                                    <li><a name="mysqlconvertutf8"><i class="fa fa-exchange"></i> Convert using UTF-8</a></li>
-                                    <li><a name="mysqlconvertlatin1"><i class="fa fa-exchange"></i> Convert using Latin1</a></li>
+                                    <li><a name="mysqlbasicinfo"><i class="fa fa-database"></i> Basic info column</a>
+                                    </li>
+                                    <li><a name="mysqlconvertutf8"><i class="fa fa-exchange"></i> Convert using
+                                        UTF-8</a></li>
+                                    <li><a name="mysqlconvertlatin1"><i class="fa fa-exchange"></i> Convert using Latin1</a>
+                                    </li>
                                     <li><a name="mysqltosqlchar"><i class="fa fa-database"></i> MYSQL CHAR()</a></li>
                                 </ul>
                             </li>
@@ -44,7 +47,8 @@
                                 </ul>
                             </li>
                             <li><a name="unionselect"><i class="fa fa-database"></i> Union select statement</a></li>
-                            <li><a name="spacestocomments"><i class="fa fa-database"></i> Spaces to inline comments</a></li>
+                            <li><a name="spacestocomments"><i class="fa fa-database"></i> Spaces to inline comments</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -96,18 +100,27 @@
 </section>
 <section class="box-input-url">
     <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-1 col-lg-1">
-            <div class="range"><img src="img/load.png" alt="">
-                <p id="hackbar_loadurl" class="box">Lo<u>a</u>d URL</p></div>
-            <div class="range"><img src="img/split.gif" alt="">
-                <p id="hackbar_split" class="box"><u>S</u>plit URL</p></div>
-            <div class="range"><img src="img/web.png" alt="">
-                <p id="hackbar_run" class="box">Execute</p></div>
+        <div class="col-xs-3 col-sm-3 col-md-1 col-lg-1">
+            <button id="hackbar_loadurl" class="btn btn-block btn-primary-outline"><img src="img/load.png" alt="">
+                Lo<u>a</u>d URL
+            </button>
+            <button id="hackbar_split" class="btn btn-block btn-primary-outline"><img src="img/split.gif" alt="">
+                Sp<u>i</u>t URL
+            </button>
+            <button id="hackbar_run" class="btn btn-block btn-primary-outline"><img src="img/web.png" alt="">
+                Execution
+            </button>
         </div>
-        <div class="col-xs-8 col-sm-8 col-md-11 col-lg-11">
+        <div class="col-xs-9 col-sm-9 col-md-11 col-lg-11">
             <textarea spellcheck="false" id="hackbar_urlfield" cols="30" class="form-control" rows="4"></textarea><br>
-            <input id="hackbar_enablepostdata" type="checkbox" value=""><label>Enable Post Data</label> &nbsp;&nbsp;
-            <input id="hackbar_enablereferer" type="checkbox" value=""><label>Enable Referrer</label>
+            <div class="form-group">
+                <input id="hackbar_enablepostdata" type="checkbox" value=""><label>Enable Post Data</label>
+                <input id="hackbar_enablereferer" type="checkbox" value=""><label>Enable Referrer</label>
+                <input id="hackbar_text2replace" class="black" style="margin-left: 5px">
+                <button name="replace" class="btn btn-primary-outline btn-sm"><span class="fa fa-exchange"></span>
+                </button>
+                <input id="hackbar_replacement" class="black">
+            </div>
         </div>
     </div>
 </section>
