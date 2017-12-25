@@ -311,6 +311,24 @@ function urlencode(inputstr) {
     return newString;
 }
 
+function htmlEscape(inputstr) {
+    return inputstr
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+
+function htmlUnescape(inputstr){
+    return inputstr
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&amp;/g, '&');
+}
+
 function loadUrl() {
     browser.devtools.inspectedWindow.eval("window.location.href")
         .then(function (result, isException) {
@@ -393,7 +411,7 @@ function execute() {
             else {
                 console.error("New exception: Too much field in a variable");
             }
-            scriptpost += '<input type="hidden" name="' + field[0] + '" value="' + fieldvalue + '">';
+            scriptpost += '<input type="hidden" name="' + field[0] + '" value="' + htmlEscape(fieldvalue) + '">';
         }
         scriptpost += '</form>\';document.getElementById("hackbardynForm").submit();';
         browser.devtools.inspectedWindow.eval(scriptpost)
