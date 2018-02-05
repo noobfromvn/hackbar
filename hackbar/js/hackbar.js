@@ -16,8 +16,8 @@ function handleHidden() {
  */
 browser.devtools.panels.create(
     "Hackbar",
-    "icons/icon.png",
-    "hackbar/hackbar-panel.html"
+    "../icons/icon.png",
+    "hackbar-panel.html"
 ).then(function(newPanel) {
     newPanel.onShown.addListener(handleShown);
     newPanel.onHidden.addListener(handleHidden);
