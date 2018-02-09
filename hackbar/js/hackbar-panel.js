@@ -47,6 +47,9 @@ var reverseBtn = document.getElementsByName("reverse")[0];
 
 var replaceBtn = document.getElementsByName("replace")[0];
 
+var plusBtn = document.getElementById("hackbar_plus")[0];
+var minusBtn = document.getElementById("hackbar_minus")[0];
+
 var currentFocusField = null;
 
 loadurlBtn.addEventListener("click", loadUrl, false);
@@ -86,6 +89,8 @@ stripslashesBtn.addEventListener('click', anonClickMenuFunct, false);
 stripspacesBtn.addEventListener('click', anonClickMenuFunct, false);
 reverseBtn.addEventListener('click', anonClickMenuFunct, false);
 replaceBtn.addEventListener('click', anonClickMenuFunct, false);
+plusBtn.addEventListener('click', anonClickMenuFunct, false);
+minusBtn.addEventListener('click', anonClickMenuFunct, false);
 
 anonFocusFunct = function (event) {
     onFieldFocus(event);
@@ -271,6 +276,23 @@ function onClickMenu(event) {
                 txt = this.currentFocusField.value;
                 newString = txt.replace(new RegExp(text2replace, 'g'), replacement);
                 this.currentFocusField.value = newString;
+            }
+            break;
+        case 'hackbar_plus':
+            txt = this.getSelectedText();
+            if (txt !== false) {
+                newString = String(parseInt(txt)+1);
+                this.setSelectedText(newString);
+                execute();
+            }
+
+            break;
+        case 'hackbar_minus':
+            txt = this.getSelectedText();
+            if (txt !== false) {
+                newString = String(parseInt(txt)-1);
+                this.setSelectedText(newString);
+                execute();
             }
             break;
     }
