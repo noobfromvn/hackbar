@@ -47,8 +47,8 @@ var reverseBtn = document.getElementsByName("reverse")[0];
 
 var replaceBtn = document.getElementsByName("replace")[0];
 
-var plusBtn = document.getElementById("hackbar_plus")[0];
-var minusBtn = document.getElementById("hackbar_minus")[0];
+var plusBtn = document.getElementsByName("plus")[0];
+var minusBtn = document.getElementsByName("minus")[0];
 
 var currentFocusField = null;
 
@@ -278,7 +278,7 @@ function onClickMenu(event) {
                 this.currentFocusField.value = newString;
             }
             break;
-        case 'hackbar_plus':
+        case 'plus':
             txt = this.getSelectedText();
             if (txt !== false) {
                 newString = String(parseInt(txt)+1);
@@ -287,7 +287,7 @@ function onClickMenu(event) {
             }
 
             break;
-        case 'hackbar_minus':
+        case 'minus':
             txt = this.getSelectedText();
             if (txt !== false) {
                 newString = String(parseInt(txt)-1);
@@ -485,4 +485,3 @@ function togglereferer() {
         referercontainer.style.position = "absolute";
     }
 }
-
