@@ -6,7 +6,7 @@ A developer tool panel that helps pen-testers to perform manual web security tes
 
 The original version is at https://addons.mozilla.org/en-US/firefox/addon/hackbar/
 
-Current release version is 1.0.5 at https://addons.mozilla.org/en-US/firefox/addon/hackbar-for-firefox-57/
+Current release version is 1.0.6 at https://addons.mozilla.org/en-US/firefox/addon/hackbar-for-firefox-57/
 
 This is first version, there will definitely be some of bugs, please don't hate me and give me any bugs and comments to improve it.
 
@@ -16,3 +16,6 @@ This is first version, there will definitely be some of bugs, please don't hate 
 3. I tried to make this version as similar as possible to the original. However, due to the new policy of firefox 
 version, the position of the new hackbar must move to devtools-panel.
 4. Most of core functions is completed. I am trying to port all of them. If anyone who have any idea about the layout, please contact me.
+
+## Contributors
+* [7i](https://github.com/7i)
