@@ -376,9 +376,6 @@ var typePostdata = "";
 function getPostData() {
     var dataString = postdatafield.value;
     if (dataString || '') {
-        dataString = dataString.replace(new RegExp(/\=\=/g), "%3d%3d"); // for base64
-        dataString = dataString.replace(new RegExp(/\=\&/g), "%3d&");   // for base64
-        dataString = dataString.replace(new RegExp(/\=$/g), "%3d&");   // for base64
         if (dataString.indexOf("Content-Disposition: form-data; name=") > -1) {
             typePostdata = "multipart";
             return dataString;
@@ -420,20 +417,9 @@ function execute() {
     if (typePostdata === "formdata") {
         var scriptpost = 'document.body.innerHTML += \'<form id="hackbardynForm" action="' + url + '" method="post">';
         for (var i = 0; i < postData.length; i++) {
-            var field = postData[i].split('=');
-            var fieldvalue = "";
-            if (field.length === 2) {
-                fieldvalue = field[1];
-            }
-            else if (field.length === 3) { // base64 case
-                if (field[2] === "") {
-                    fieldvalue = field[1] + "%3d";
-                }
-            }
-            else {
-                console.error("New exception: Too much field in a variable");
-            }
-            scriptpost += '<input type="hidden" name="' + field[0] + '" value="' + htmlEscape(fieldvalue) + '">';
+            var field = postData[i].substr(0, postData[i].indexOf('='));
+            var fieldvalue = postData[i].substr(postData[i].indexOf('=') + 1);
+            scriptpost += '<input type="hidden" name="' + field + '" value="' + htmlEscape(fieldvalue) + '">';
         }
         scriptpost += '</form>\';document.getElementById("hackbardynForm").submit();';
         browser.devtools.inspectedWindow.eval(scriptpost)
