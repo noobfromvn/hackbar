@@ -326,10 +326,11 @@ function setSelectedText(str) {
 
 
 function urlencode(inputstr) {
-    var newString = escape(inputstr);
+    var newString = encodeURI(inputstr);
     newString = newString.replace(/\*/g, '%2a');
     newString = newString.replace(/\//g, '%2f');
     newString = newString.replace(/\+/g, '%2b');
+    newString = newString.replace(/\'/g, '%27');
     return newString;
 }
 
@@ -406,8 +407,12 @@ function execute() {
             refererfield: refererfield.value
         });
     }
+
+    var _url = url.substr(0, url.indexOf('?'));
+    var _query = url.substr(url.indexOf('?') + 1);
+
     if (!postdataCbx.checked) { // just get method
-        browser.devtools.inspectedWindow.eval("window.location.href = '" + url + "';")
+        browser.devtools.inspectedWindow.eval("window.location.href = '" + _url + "?" + urlencode(_query) + "';")
             .then(function (result, isException) {
                 //no action
             });
@@ -415,7 +420,7 @@ function execute() {
     }
     var postData = getPostData();
     if (typePostdata === "formdata") {
-        var scriptpost = 'document.body.innerHTML += \'<form id="hackbardynForm" action="' + url + '" method="post">';
+        var scriptpost = 'document.body.innerHTML += \'<form id="hackbardynForm" action="' + _url + "?" + urlencode(_query) + '" method="post">';
         for (var i = 0; i < postData.length; i++) {
             var field = postData[i].substr(0, postData[i].indexOf('='));
             var fieldvalue = postData[i].substr(postData[i].indexOf('=') + 1);
@@ -442,7 +447,7 @@ function execute() {
         }).then(function (response) {
             response.text().then(function (text) {
                 responsePost = text;
-                var scriptpost = 'document.body.innerHTML = unescape(\'' + urlencode(responsePost) + '\');window.history.pushState("", "", \'' + url + '\');';
+                var scriptpost = 'document.body.innerHTML = unescape(\'' + urlencode(responsePost) + '\');window.history.pushState("", "", \'' + _url + "?" + urlencode(_query) +'\');';
                 browser.devtools.inspectedWindow.eval(scriptpost)
                     .then(function (result, isException) {
                         //no action
